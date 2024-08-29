@@ -31,24 +31,25 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
   const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      <div className="flex w-full h-full">
-        {/* chat sidebar */}
-        <div className="flex-[2] h-full max-w-xs overflow-y-auto bg-gray-900">
+    <div className="flex h-full">
+      <div className="flex w-full ">
+        {/* Chat Sidebar */}
+        <div className="flex-[2] max-w-xs overflow-y-auto bg-gray-900">
           <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
         </div>
-        {/* pdf viewer */}
-        <div className="flex-[5] h-full p-4 overflow-y-auto">
+
+        {/* PDF Viewer */}
+        <div className="flex-[5] p-4 overflow-y-auto">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
-        {/* chat component */}
-        <div className="flex-[3] h-full border-l-4 border-l-slate-200 overflow-y-auto">
+
+        {/* Chat Component */}
+        <div className="flex-[3] border-l-4 border-l-slate-200">
           <ChatComponent chatId={parseInt(chatId)} />
         </div>
       </div>
     </div>
-  );  
-  
+  );
 };
 
 export default ChatPage;

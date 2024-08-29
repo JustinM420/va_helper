@@ -52,7 +52,7 @@ const FileUpload = () => {
         mutate(data, {
           onSuccess: ({ chat_id }) => {
             toast.success("Chat created!");
-            router.push(`/chat/${chat_id}`);
+            router.push(`/pdf-chat/${chat_id}`);
           },
           onError: (err) => {
             toast.error("Error creating chat");
@@ -67,7 +67,7 @@ const FileUpload = () => {
     },
   });
   return (
-    <div className="p-2 bg-white rounded-xl">
+    <div className="p-2 m-1 bg-white rounded-xl">
       <div
         {...getRootProps({
           className:

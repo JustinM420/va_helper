@@ -24,7 +24,7 @@ const ChatComponent = ({ chatId }: Props) => {
   });
 
   const { input, handleInputChange, handleSubmit, messages } = useChat({
-    api: "/api/chat",
+    api: "/api/pdf-chat",
     body: {
       chatId,
     },
@@ -43,21 +43,21 @@ const ChatComponent = ({ chatId }: Props) => {
 
   return (
     <div className="flex flex-col h-full">
-      {/* header */}
+      {/* Header */}
       <div className="sticky top-0 inset-x-0 p-2 bg-white z-10">
-        <h3 className="text-xl font-bold">Chat with Your Decision Letter</h3>
+        <h3 className="text-xl mt-1 font-bold">Chat with Your Decision Letter</h3>
         <Separator className="my-2" /> {/* Separator below the header */}
       </div>
 
-      {/* message list */}
+      {/* Message List */}
       <div className="flex-1 overflow-y-auto" id="message-container">
         <MessageList messages={messages} isLoading={isLoading} />
       </div>
 
-      {/* form at the bottom */}
+      {/* Form at the Bottom */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-4 border-t border-gray-200"
+        className="sticky bottom-0 bg-white p-4 border-t border-gray-200 pt-3"
       >
         <div className="flex">
           <Input

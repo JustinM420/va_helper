@@ -41,7 +41,8 @@ export async function POST(req: Request) {
             - If the context doesn't provide an answer, AI will say, "I'm sorry, but I don't know the answer to that question."
             - AI doesn't apologize for past responses but indicates when new information is available.
             - AI will not create information beyond what is in the context or known from authoritative sources.
-            - Do Not use markdown formatting in your response. Use added spacing and indenting to help make your responses easy to read.
+            - Do Not use markdown formatting in your response. 
+            - Use added spacing and indenting to help make your responses easy to read.
             - If the User asks about a document or file they are refering to the context block.
              `,
     };
