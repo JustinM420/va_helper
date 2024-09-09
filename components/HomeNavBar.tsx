@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const HomeNavBar = () => {
   return (
-    <header className="bg-white bg-opacity-90 backdrop-blur-md shadow-md w-full sticky top-0 z-50">
+    <header className="bg-gradient-to-t from-gray-200 via-gray-100 to-gray-300 bg-opacity-90 backdrop-blur-md shadow-md w-full sticky top-0 z-50">
       <nav className="flex justify-between items-center p-4">
         
         {/* Logo and Name */}
@@ -19,7 +19,7 @@ const HomeNavBar = () => {
               height={40}
             />
           </Link>
-          <h1 className="text-3xl font-bold text-blue-600">VACAx</h1>
+          <h1 className="text-3xl font-bold text-blue-950">VACAx</h1>
         </div>
 
         {/* User Button */}
