@@ -1,17 +1,12 @@
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { LogInIcon } from "lucide-react";
 import Image from "next/image";
 
-interface HeaderProps {
-  isAuth: boolean;
-  firstChat: { id: string | number } | null;
-}
 
-export default function Header({ isAuth, firstChat }: HeaderProps) {
+export default function Header() {
   return (
-    <header className="bg-white bg-opacity-90 backdrop-blur-md shadow-md w-full sticky top-0 z-50">
+    <header className="bg-gradient-to-t from-gray-200 via-gray-100 to-gray-300 bg-opacity-90 backdrop-blur-md shadow-md w-full sticky top-0 z-50">
       <nav className="container mx-auto flex justify-between items-center p-4">
         {/* Logo and Branding */}
         <div className="flex items-center flex-grow space-x-2">
@@ -24,7 +19,7 @@ export default function Header({ isAuth, firstChat }: HeaderProps) {
               height={50}
             />
           </Link>
-          <Link href="/" className="text-4xl font-bold text-blue-600">
+          <Link href="/" className="text-4xl font-bold text-blue-950">
             VACAx
           </Link>
         </div>
@@ -44,21 +39,6 @@ export default function Header({ isAuth, firstChat }: HeaderProps) {
 
         {/* Right Side Buttons */}
         <div className="flex items-center justify-end space-x-4 flex-grow">
-          {isAuth && firstChat ? (
-            <>
-              <Link href={`/pdf-chat/${firstChat.id}`}>
-                <Button 
-                className="rounded-lg px-6 py-2 shadow-lg"
-                variant="default"
-                >
-                  Go to Chats
-                </Button>
-              </Link>
-              <div className="ml-4">
-                <UserButton />
-              </div>
-            </>
-          ) : (
             <>
               <Link href="/sign-up">
                 <Button 
@@ -69,7 +49,6 @@ export default function Header({ isAuth, firstChat }: HeaderProps) {
                 </Button>
               </Link>
             </>
-          )}
         </div>
       </nav>
     </header>
