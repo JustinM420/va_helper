@@ -1,0 +1,131 @@
+// User Profile Type
+type UserProfile = {
+  userId: string;
+  ssn: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: Date;
+  email: string;
+  phoneNumber?: string;   // Optional
+  address?: Address;      // Optional
+  disabilityRating?: number;  // Optional
+  vaClaims: Claim[];      // List of claims associated with the veteran
+  appeals: Appeal[];      // List of appeals associated with the veteran
+  documents: DocumentUpload[];  // List of uploaded documents
+};
+
+// Address Type
+type Address = {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+};
+
+// Appeal Type
+type Appeal = {
+  appealId: string;  // Required
+  appealType: "legacyAppeal" | "higherLevelReview" | "supplementalClaim";  // Required
+  appealStatus: "pending" | "decision_in_progress" | "bva_decision" | "denied" | "approved";  // Required
+  appealDescription: string;  // Required
+  agencyOfJurisdiction: "vba" | "vha" | "nca";  // Required
+  programArea: "compensation" | "pension" | "medical";  // Required
+  docketType: string;  // Required
+  docketPosition: number;  // Required
+  docketMonth: Date;  // Required
+  appealIssues: AppealIssue[];  // Required
+  appealEvidence: AppealEvidence[];  // Optional
+  appealAlerts: string[];  // Optional
+  appealEvents: AppealEvent[];  // Optional
+};
+
+// Supporting Types for Appeal
+type AppealIssue = {
+  issueId: string;  // Required
+  issueDescription: string;  // Required
+  issueStatus: "open" | "closed";  // Required
+};
+
+type AppealEvidence = {
+  evidenceId: string;  // Required
+  description: string;  // Required
+  submittedDate: Date;  // Required
+};
+
+type AppealEvent = {
+  eventType: string;  // Required
+  date: Date;  // Required
+  details: string;  // Optional
+};
+
+// Claim Type
+type Claim = {
+  claimId: string;  // Required
+  veteranId: string;  // Required
+  claimType: "disability" | "pension" | "education" | "housing" | "medical" | "other";  // Required
+  claimStatus: "pending" | "under_review" | "completed" | "approved" | "denied";  // Required
+  dateSubmitted: Date;  // Required
+  claimDecision?: "approved" | "denied" | "pending";  // Optional
+  documentsSubmitted: ClaimDocument[];  // Required
+  dateOfLastUpdate: Date;  // Required
+};
+
+// Supporting Type for Claim
+type ClaimDocument = {
+  documentId: string;  // Required
+  documentType: "supportingEvidence" | "medicalRecords" | "statement" | "form";  // Required
+  dateSubmitted: Date;  // Required
+  description?: string;  // Optional
+};
+
+// Document Upload Type
+type DocumentUpload = {
+  requestId: number;  // Required
+  participantId: number;  // Required
+  fileNumber: string;  // Required
+  claimId: number;  // Required
+  docType: string;  // Required
+  fileName: string;  // Required
+  trackedItemIds?: number[];  // Optional
+  uploadStatus: "IN_PROGRESS" | "SUCCESS" | "FAILED";  // Required
+  uploadedDateTime: Date;  // Required
+};
+
+// Document Status Type
+type DocumentStatus = {
+  requestId: number;  // Required
+  status: "IN_PROGRESS" | "SUCCESS" | "FAILED";  // Required
+  steps: WorkflowStep[];  // Required
+  error?: WorkflowError;  // Optional
+};
+
+// Supporting Types for Document Status
+type WorkflowStep = {
+  name: "CLAIMS_EVIDENCE" | "BENEFITS_GATEWAY_SERVICE";  // Required
+  status: "NOT_STARTED" | "IN_PROGRESS" | "SUCCESS" | "FAILED";  // Required
+  description: string;  // Required
+};
+
+type WorkflowError = {
+  detail: string;  // Required
+  step: "CLAIMS_EVIDENCE" | "BENEFITS_GATEWAY_SERVICE";  // Required
+};
+
+// Document Submission Type
+type DocumentSubmission = {
+  id: string;  // Required
+  location: string;  // Required (URL where the document is uploaded)
+  metadata: DocumentMetadata;  // Required
+};
+
+// Document Metadata Type
+type DocumentMetadata = {
+  veteranFirstName: string;  // Required
+  veteranLastName: string;  // Required
+  fileNumber: string;  // Required (SSN or VA File Number)
+  zipCode: string;  // Required
+  source?: string;  // Optional (System or entity submitting the document)
+  docType?: string;  // Optional (VA form number or document type)
+  businessLine?: "CMP" | "PMC" | "INS" | "EDU" | "VRE" | "BVA" | "FID" | "NCA" | "OTH";  // Optional
+};
+

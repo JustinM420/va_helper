@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import { ClerkProvider } from "@clerk/nextjs";
-import { Toaster } from 'react-hot-toast';
+import { Toaster } from "@/components/ui/toaster"
 
 import "./globals.css";
 import Providers from "@/components/Providers";
