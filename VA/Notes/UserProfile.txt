@@ -1,0 +1,22 @@
+type UserProfile = {
+  userId: string;
+  ssn: string;
+  vaUserName: string;
+  appeals: Appeal[];
+};
+
+type Appeal = {
+  appealId: string;
+  appealType: "legacyAppeal" | "higherLevelReview" | "supplementalClaim";
+  appealStatus: string;
+  appealDescription: string;
+  agencyOfJurisdiction: "vba" | "vha" | "nca";
+  programArea: "compensation" | "pension" | "medical" | "other";
+  docketType: string;
+  docketPosition: number;
+  docketMonth: Date;
+  appealIssues: string[];
+  appealEvidence: { description: string, date: Date }[];
+  appealAlerts: string[];
+  appealEvents: { type: string, date: Date, details: string }[];
+};
