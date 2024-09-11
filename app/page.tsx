@@ -55,7 +55,7 @@ export default async function Lander() {
             <div className="bg-white shadow-lg p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-blue-600 mb-3">Guidance on VA Claims</h3>
               <p className="text-gray-600">
-                Get detailed instructions on how to submit and track your VA claims, ensuring you&apros;re on the right path.
+                Get detailed instructions on how to submit and track your VA claims, ensuring you&apos;re on the right path.
               </p>
             </div>
             <div className="bg-white shadow-lg p-6 rounded-lg">
