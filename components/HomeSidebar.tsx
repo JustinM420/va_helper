@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { MessageCircle, FileText, Settings, Home } from "lucide-react"; 
+import { MessageCircle, FileText, Settings, Home, UserRoundPen } from "lucide-react"; 
 import UploadDialog from "./UploadDialog"; 
-import { useRouter } from "next/router"; // For route detection (optional)
+
 
 interface HomeSidebarProps {
   firstChat: string | null; 
@@ -52,10 +52,19 @@ const HomeSidebar: React.FC<HomeSidebarProps> = ({ firstChat }) => {
         <Link href="/profile">
           <div 
             className="rounded-lg p-3 text-white font-bold flex items-center hover:text-slate-400" 
-            aria-label="Profile / Settings"
+            aria-label="Profile"
           >
             <Settings className="mr-2" aria-hidden="true" focusable="false" />
-            <p className="w-full text-md">Profile / Settings</p>
+            <p className="w-full text-md">Profile</p>
+          </div>
+        </Link>
+        <Link href="/settings">
+          <div 
+            className="rounded-lg p-3 text-white font-bold flex items-center hover:text-slate-400" 
+            aria-label="settings"
+          >
+            <UserRoundPen className="mr-2" aria-hidden="true" focusable="false" />
+            <p className="w-full text-md">Settings</p>
           </div>
         </Link>
       </div>
