@@ -1,15 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
-import { MessageCircle, FileText, Settings, Home } from "lucide-react"; // Icons for the links
-import UploadDialog from "./UploadDialog"; // Import the new UploadDialog component
+import React, { useState } from "react";
+import { MessageCircle, FileText, Settings, Home } from "lucide-react"; 
+import UploadDialog from "./UploadDialog"; 
+import { useRouter } from "next/router"; // For route detection (optional)
 
 interface HomeSidebarProps {
-  firstChat: string | null; // Expecting firstChat as a prop
+  firstChat: string | null; 
 }
 
 const HomeSidebar: React.FC<HomeSidebarProps> = ({ firstChat }) => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
+
+  const openDialog = () => setDialogOpen(true);
+  const closeDialog = () => setDialogOpen(false);
+
   return (
     <div className="w-full h-full flex flex-col p-4 bg-blue-800 sticky top-0">
       
@@ -38,7 +44,10 @@ const HomeSidebar: React.FC<HomeSidebarProps> = ({ firstChat }) => {
           </Link>
         ) : (
           // Render the UploadDialog when there are no chats
-          <UploadDialog />
+          <>
+            <button onClick={openDialog}>Upload Document</button>
+            {isDialogOpen && <UploadDialog closeDialog={closeDialog} />} {/* Pass closeDialog */}
+          </>
         )}
         <Link href="/profile">
           <div 

@@ -1,7 +1,6 @@
 
 import Header from "@/components/HeaderNav";
 import Footer from "@/components/FooterNav";
-import FileUpload from "@/components/fileUpload";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { LogInIcon } from "lucide-react";

@@ -1,12 +1,31 @@
-// components/UploadDialog.tsx
-
 "use client";
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { MessageCircle } from "lucide-react";
 import FileUpload from "@/components/fileUpload";
+import { useRouter } from "next/router"; // Import useRouter to detect route changes
+import { useEffect } from "react";
 
-const UploadDialog: React.FC = () => {
+interface UploadDialogProps {
+  closeDialog: () => void;  // Accept closeDialog as a prop
+}
+
+const UploadDialog: React.FC<UploadDialogProps> = ({ closeDialog }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Automatically close the modal on route change
+    const handleRouteChange = () => {
+      closeDialog();  // Close the modal when the route changes
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router, closeDialog]);
+
   return (
     <Dialog>
       <DialogTrigger asChild>

@@ -63,7 +63,7 @@ export const OnboardingForm = () => {
         description: "Profile created successfully!",
       });
 
-      router.push("/dashboard"); // Redirect to dashboard after onboarding
+      router.push("/home"); // Redirect to dashboard after onboarding
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -74,169 +74,176 @@ export const OnboardingForm = () => {
 
   return (
     <div className="h-full p-4 space-y-8 max-w-3xl mx-auto">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-
-          {/* Required Fields Section */}
-          <div className="space-y-2 w-full">
-            <div>
-              <h3 className="text-lg font-medium">Required Information</h3>
-              <p className="text-sm text-muted-foreground">
-                Please provide the following required information.
-              </p>
-            </div>
-            <Separator className="bg-primary/10" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"> {/* 2-column layout for large screens */}
-              <FormField
-                name="firstName"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>First Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="First name" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                name="lastName"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Last Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Last name" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                name="ssn"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>SSN</FormLabel>
-                    <FormControl>
-                      <Input placeholder="123-45-6789" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                name="dateOfBirth"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Date of Birth</FormLabel>
-                    <FormControl>
-                      <Input type="date" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+  <Form {...form}>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8" aria-live="assertive">
+      
+      {/* Required Fields Section */}
+      <fieldset>
+        <legend className="sr-only">Required Information</legend> {/* Screen reader-only text */}
+        <div className="space-y-2 w-full">
+          <div>
+            <h3 className="text-lg font-medium">Required Information</h3>
+            <p className="text-sm text-muted-foreground">
+              Please provide the following required information.
+            </p>
           </div>
-
-          {/* Separator between required and optional fields */}
           <Separator className="bg-primary/10" />
 
-          {/* Optional Fields Section */}
-          <div className="space-y-2 w-full">
-            <div>
-              <h3 className="text-lg font-medium">Optional Information</h3>
-              <p className="text-sm text-muted-foreground">
-                You may provide this optional information to enhance your profile.
-              </p>
-            </div>
-            <Separator className="bg-primary/10" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"> {/* 2-column layout for large screens */}
+            <FormField
+              name="firstName"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="firstName">First Name</FormLabel>
+                  <FormControl>
+                    <Input id="firstName" placeholder="First name" {...field} disabled={isLoading} aria-required="true" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"> {/* 2-column layout for large screens */}
-              <FormField
-                name="phoneNumber"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
-                    <FormControl>
-                      <Input type="tel" placeholder="555-555-5555" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <FormField
+              name="lastName"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="lastName">Last Name</FormLabel>
+                  <FormControl>
+                    <Input id="lastName" placeholder="Last name" {...field} disabled={isLoading} aria-required="true" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormField
-                name="street"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Street</FormLabel>
-                    <FormControl>
-                      <Input placeholder="123 Main St" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+            <FormField
+              name="ssn"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="ssn">SSN</FormLabel>
+                  <FormControl>
+                    <Input id="ssn" placeholder="123-45-6789" {...field} disabled={isLoading} aria-required="true" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-              <FormField
-                name="city"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>City</FormLabel>
-                    <FormControl>
-                      <Input placeholder="City" {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                name="state"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>State</FormLabel>
-                    <FormControl>
-                      <Input placeholder="CA" maxLength={2} {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                name="zipCode"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>ZIP Code</FormLabel>
-                    <FormControl>
-                      <Input placeholder="12345" maxLength={10} {...field} disabled={isLoading} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            <FormField
+              name="dateOfBirth"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="dateOfBirth">Date of Birth</FormLabel>
+                  <FormControl>
+                    <Input id="dateOfBirth" type="date" {...field} disabled={isLoading} aria-required="true" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
+        </div>
+      </fieldset>
 
-          <Button type="submit" size="lg" disabled={isLoading}>
-            Complete Onboarding
-          </Button>
-        </form>
-      </Form>
-    </div>
+      {/* Separator between required and optional fields */}
+      <Separator className="bg-primary/10" />
+
+      {/* Optional Fields Section */}
+      <fieldset>
+        <legend className="sr-only">Optional Information</legend> {/* Screen reader-only text */}
+        <div className="space-y-2 w-full">
+          <div>
+            <h3 className="text-lg font-medium">Optional Information</h3>
+            <p className="text-sm text-muted-foreground">
+              You may provide this optional information to enhance your profile.
+            </p>
+          </div>
+          <Separator className="bg-primary/10" />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4"> {/* 2-column layout for large screens */}
+            <FormField
+              name="phoneNumber"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
+                  <FormControl>
+                    <Input id="phoneNumber" type="tel" placeholder="555-555-5555" {...field} disabled={isLoading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="street"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="street">Street</FormLabel>
+                  <FormControl>
+                    <Input id="street" placeholder="123 Main St" {...field} disabled={isLoading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="city"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="city">City</FormLabel>
+                  <FormControl>
+                    <Input id="city" placeholder="City" {...field} disabled={isLoading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="state"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="state">State</FormLabel>
+                  <FormControl>
+                    <Input id="state" placeholder="CA" maxLength={2} {...field} disabled={isLoading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="zipCode"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="zipCode">ZIP Code</FormLabel>
+                  <FormControl>
+                    <Input id="zipCode" placeholder="12345" maxLength={10} {...field} disabled={isLoading} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+      </fieldset>
+
+      <Button type="submit" size="lg" disabled={isLoading}>
+        Complete Onboarding
+      </Button>
+    </form>
+  </Form>
+</div>
+
   );
 };
