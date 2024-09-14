@@ -96,6 +96,30 @@ export const ProfilePage = () => {
     }
   };
 
+  const handleDeleteAccount = async () => {
+    try {
+      const confirmDelete = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+      
+      if (!confirmDelete) return;
+  
+      // Call the combined delete route
+      await axios.delete("/api/delete-account");
+  
+      toast({
+        description: "Account deleted successfully.",
+      });
+  
+      // Optionally, redirect the user after deletion
+      window.location.href = "/";
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Failed to delete account. Please try again.",
+      });
+    }
+  };
+  
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -215,6 +239,13 @@ export const ProfilePage = () => {
 
                 <Button type="submit" size="lg" disabled={isLoading}>
                   Update Profile
+                </Button>
+                
+                {/* Delete Account Button */}
+                <Button 
+                  className="m-3"
+                  variant="destructive" size="lg" onClick={handleDeleteAccount} disabled={isLoading}>
+                  Delete Account
                 </Button>
               </form>
             </Form>
