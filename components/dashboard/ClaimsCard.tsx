@@ -67,14 +67,14 @@ const ClaimsCard: React.FC<ClaimsCardProps> = ({ claims }) => {
   });
 
   return (
-    <Card className="bg-gradient-to-t from-gray-100 via-gray-50 to-gray-100 bg-opacity-90 backdrop-blur-md shadow-md">
+    <Card className="shadow-lg bg-white">
       <CardHeader>
         <CardTitle>Claims Overview</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="max-h-96 overflow-y-auto"> {/* Set the maximum height of the table and allow scrolling */}
-          <Table className="border-2">
-            <TableHeader className="bg-white">
+        <div className="max-h-[60vh] overflow-y-auto"> {/* Adjust the height for larger screens */}
+          <Table className="border">
+            <TableHeader className="bg-gray-100">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (

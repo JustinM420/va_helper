@@ -32,7 +32,7 @@ export default async function HomeLayout({
       </header>
 
       {/* Content Area */}
-      <div className="flex flex-1 pt-16 overflow-hidden">
+      <div className="flex flex-1 pt-16 overflow-auto">
         {/* Sidebar */}
         <aside className="hidden md:flex w-64 flex-col">
           {/* Pass firstChat as a prop */}
@@ -40,7 +40,7 @@ export default async function HomeLayout({
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 pt-3 pl-1">
+        <main className="flex-1 pt-3 pl-1 overflow-auto">
           {children}
         </main>
       </div>

@@ -1,7 +1,10 @@
 import React from "react";
 import ClaimsCard from "@/components/dashboard/ClaimsCard";
 import RatingCard from "@/components/dashboard/RatingCard";
-import FileUploadCard from "@/components/dashboard/FileUploadCard"; // Import the new FileUploadCard
+import FileUploadCard from "@/components/dashboard/FileUploadCard";
+import PendingForms from "@/components/dashboard/PendingForms";
+import RecentChats from "@/components/dashboard/RecentChats";
+import Notifications from "@/components/dashboard/Notifications";
 
 const HomePage = () => {
   const claims = [
@@ -14,25 +17,41 @@ const HomePage = () => {
   const disabilityRating = 70;
   const monthlyCompensation = 2100.00;
 
-  return (
-    <div className="p-4">
-      <h1 className="text-3xl font-bold mb-6">Your Veteran&apos;s Benefits Dashboard</h1>
+  const forms = [
+    { id: 'form1', title: 'Form 1234', dueDate: '2024-03-01' },
+    { id: 'form2', title: 'Form 5678', dueDate: '2024-03-15' },
+  ];
 
-      {/* Grid layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* ClaimsCard takes up 3/4 */}
-        <div className="lg:col-span-3">
-          <ClaimsCard claims={claims} />
-        </div>
-        
-        {/* Right side with 1/4 span */}
-        <div className="lg:col-span-1 flex flex-col gap-6">
-          {/* RatingCard */}
-          <RatingCard disabilityRating={disabilityRating} monthlyCompensation={monthlyCompensation} />
-          
-          {/* FileUploadCard fits below RatingCard */}
-          <FileUploadCard />
-        </div>
+  const chats = [
+    { id: 'chat1', pdfName: 'Decision Letter', status: 'In Progress' },
+    { id: 'chat2', pdfName: 'Medical Report', status: 'Completed' },
+  ];
+
+  const notifications = [
+    { id: 'notif1', message: 'Your claim #12345 is under review.', link: '/claims/12345' },
+    { id: 'notif2', message: 'New document request for claim #67890.', link: '/claims/67890' },
+  ];
+
+  return (
+    <div className="flex flex-col h-screen p-4 space-y-6">
+      <h1 className="text-3xl font-bold mb-2">Your Veteran&apos;s Benefits Dashboard</h1>
+
+      {/* Top row: Notifications, RatingCard, FileUploadCard */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-shrink-0">
+        <Notifications notifications={notifications} />
+        <RatingCard disabilityRating={disabilityRating} monthlyCompensation={monthlyCompensation} />
+        <FileUploadCard />
+      </div>
+
+      {/* Middle row: ClaimsCard with full width */}
+      <div className="flex-grow mt-8">
+        <ClaimsCard claims={claims} />
+      </div>
+
+      {/* Bottom row: PendingForms and RecentChats */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 flex-shrink-0 mt-8">
+        <PendingForms forms={forms} />
+        <RecentChats chats={chats} />
       </div>
     </div>
   );
