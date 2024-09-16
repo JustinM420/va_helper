@@ -63,14 +63,31 @@ export const OnboardingForm = () => {
         description: "Profile created successfully!",
       });
 
-      router.push("/home"); // Redirect to dashboard after onboarding
+      // Initiate OAuth flow
+      // In your onSubmit function
+      const state = crypto.randomUUID(); // Generate random state
+
+      // Store the state in sessionStorage
+      sessionStorage.setItem("oauth_state", state);
+
+      const params = new URLSearchParams({
+        client_id: process.env.NEXT_PUBLIC_CLIENT_ID!,
+        redirect_uri: process.env.NEXT_PUBLIC_OAUTH_REDIRECT_URI!,
+        response_type: "code",
+        scope:
+          "profile openid service_history.read disability_rating.read",
+        state: state,
+      });
+
+
+      window.location.href = `${process.env.NEXT_PUBLIC_VA_AUTHORIZATION_URL}?${params.toString()}`;
     } catch (error) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         description: "Something went wrong, please try again.",
       });
     }
-  }
+  };
 
   return (
     <div className="h-full p-4 space-y-8 max-w-3xl mx-auto">

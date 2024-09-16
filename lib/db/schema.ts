@@ -12,7 +12,7 @@ import {
 // Enum for user system roles
 export const userSystemEnum = pgEnum("user_system_enum", ["system", "user"]);
 
-// User Profile Table
+// Update userProfiles table
 export const userProfiles = pgTable("user_profiles", {
   userId: varchar("user_id", { length: 256 }).primaryKey(),
   ssn: varchar("ssn", { length: 11 }).notNull(),
@@ -20,13 +20,55 @@ export const userProfiles = pgTable("user_profiles", {
   lastName: varchar("last_name", { length: 256 }).notNull(),
   dateOfBirth: date("date_of_birth").notNull(),
   email: varchar("email", { length: 256 }).notNull(),
-  phoneNumber: varchar("phone_number", { length: 20 }),  // Optional
-  street: text("street"),  // Optional
-  city: varchar("city", { length: 256 }),  // Optional
-  state: varchar("state", { length: 2 }),  // Optional
-  zipCode: varchar("zip_code", { length: 10 }),  // Optional
-  disabilityRating: integer("disability_rating"),  // Optional
+  phoneNumber: varchar("phone_number", { length: 20 }), // Optional
+  street: text("street"), // Optional
+  city: varchar("city", { length: 256 }), // Optional
+  state: varchar("state", { length: 2 }), // Optional
+  zipCode: varchar("zip_code", { length: 10 }), // Optional
+  combinedDisabilityRating: integer("combined_disability_rating"), // Optional
+  dischargeStatus: varchar("discharge_status", { length: 256 }), // Optional
 });
+
+// Service Histories Table
+export const serviceHistories = pgTable("service_histories", {
+  serviceHistoryId: serial("service_history_id").primaryKey(),
+  userId: varchar("user_id", { length: 256 })
+    .notNull()
+    .references(() => userProfiles.userId, { onDelete: "cascade" }),
+  branchOfService: varchar("branch_of_service", { length: 256 }).notNull(),
+  startDate: date("start_date").notNull(),
+  endDate: date("end_date"), // Optional if currently serving
+  dischargeStatus: varchar("discharge_status", { length: 256 }),
+  rankAtDischarge: varchar("rank_at_discharge", { length: 256 }),
+  mos: varchar("mos", { length: 256 }), // Military Occupational Specialty
+});
+
+// Deployments Table
+export const deployments = pgTable("deployments", {
+  deploymentId: serial("deployment_id").primaryKey(),
+  serviceHistoryId: integer("service_history_id")
+    .notNull()
+    .references(() => serviceHistories.serviceHistoryId, { onDelete: "cascade" }),
+  location: varchar("location", { length: 256 }).notNull(),
+  startDate: date("start_date").notNull(),
+  endDate: date("end_date").notNull(),
+  operationName: varchar("operation_name", { length: 256 }), // Optional
+});
+
+// Disabilities Table
+export const disabilities = pgTable("disabilities", {
+  disabilityId: serial("disability_id").primaryKey(),
+  userId: varchar("user_id", { length: 256 })
+    .notNull()
+    .references(() => userProfiles.userId, { onDelete: "cascade" }),
+  name: varchar("name", { length: 256 }).notNull(),
+  diagnosticCode: varchar("diagnostic_code", { length: 256 }), // Optional
+  disabilityRating: integer("disability_rating").notNull(),
+  effectiveDate: date("effective_date").notNull(),
+});
+
+
+
 
 // Chat Table (linked with userProfiles)
 export const chats = pgTable("chats", {
@@ -51,18 +93,21 @@ export const messages = pgTable("messages", {
   role: userSystemEnum("role").notNull(),
 });
 
-// Claims Table (linked with userProfiles)
+// Update claims table
 export const claims = pgTable("claims", {
   claimId: serial("claim_id").primaryKey(),
   userId: varchar("user_id", { length: 256 })
     .notNull()
-    .references(() => userProfiles.userId, { onDelete: "cascade" }),  // Cascade delete on userProfile deletion
+    .references(() => userProfiles.userId, { onDelete: "cascade" }),
+  serviceHistoryId: integer("service_history_id")
+    .references(() => serviceHistories.serviceHistoryId), // Optional
   claimType: varchar("claim_type", { length: 256 }).notNull(),
   claimStatus: varchar("claim_status", { length: 256 }).notNull(),
   dateSubmitted: timestamp("date_submitted").notNull(),
-  claimDecision: varchar("claim_decision", { length: 256 }),  // Optional
+  claimDecision: varchar("claim_decision", { length: 256 }), // Optional
   dateOfLastUpdate: timestamp("date_of_last_update").notNull(),
 });
+
 
 // Claim Documents Table (linked with Claims)
 export const claimDocuments = pgTable("claim_documents", {
